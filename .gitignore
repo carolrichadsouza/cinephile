@@ -427,3 +427,25 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Environment variables
+**/.env
+**/.env.*
+!**/.env.example
+
+# Node
+**/node_modules/
+
+# Vite
+**/dist/
+**/.vite/
+
+# Coverage
+coverage/
+**/coverage/
+
+# OS files
+Thumbs.db
+
+# PostgreSQL
+*.db

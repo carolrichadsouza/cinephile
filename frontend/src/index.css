@@ -1,3 +1,196 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --font-sans: "Geist Sans", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+}
+
+/* Light Theme */
+:root {
+  /* Radius */
+  --radius: 0.5rem;
+
+  /* Backgrounds */
+  --header: #131A14;
+  --background: #fdf0d5;
+  --foreground: #003049;
+
+  --card: #ffffff;
+  --card-foreground: #003049;
+
+  --popover: #ffffff;
+  --popover-foreground: #003049;
+
+  /* Brand */
+  --primary: #003049;
+  --primary-foreground: #fdf0d5;
+
+  --secondary: #669bbc;
+  --secondary-foreground: #ffffff;
+
+  --muted: #f5e6c5;
+  --muted-foreground: #6b7280;
+
+  --accent: #c1121f;
+  --accent-foreground: #fdf0d5;
+
+  --destructive: #780000;
+  --destructive-foreground: #fdf0d5;
+
+  /* Inputs */
+  --border: #d8ccb3;
+  --input: #ffffff;
+  --ring: #669bbc;
+
+  /* Charts */
+  --chart-1: #003049;
+  --chart-2: #669bbc;
+  --chart-3: #c1121f;
+  --chart-4: #780000;
+  --chart-5: #fdf0d5;
+
+  /* Cinephile Tokens */
+
+  --surface: #ffffff;
+  --surface-hover: #f8ecd0;
+
+  --xp: #c1121f;
+  --achievement: #c1121f;
+  --level: #669bbc;
+  --streak: #e5a000;
+
+  --poster-shadow: rgba(0, 0, 0, 0.15);
+}
+
+/* Dark Theme */
+
+.dark {
+  /* Backgrounds */
+  --header: #131A14;
+  --background: #003049;
+  --foreground: #fdf0d5;
+
+  --card: #002336;
+  --card-foreground: #fdf0d5;
+
+  --popover: #002336;
+  --popover-foreground: #fdf0d5;
+
+  /* Brand */
+  --primary: #c1121f;
+  --primary-foreground: #fdf0d5;
+
+  --secondary: #669bbc;
+  --secondary-foreground: #003049;
+
+  --muted: #12384e;
+  --muted-foreground: #bfc6cc;
+
+  --accent: #669bbc;
+  --accent-foreground: #003049;
+
+  --destructive: #780000;
+  --destructive-foreground: #fdf0d5;
+
+  /* Inputs */
+  --border: rgba(253, 240, 213, 0.12);
+  --input: #12384e;
+  --ring: #669bbc;
+
+  /* Charts */
+  --chart-1: #669bbc;
+  --chart-2: #c1121f;
+  --chart-3: #fdf0d5;
+  --chart-4: #780000;
+  --chart-5: #2b4f65;
+
+  /* Sidebar */
+  --sidebar: #002336;
+  --sidebar-foreground: #fdf0d5;
+  --sidebar-primary: #c1121f;
+  --sidebar-primary-foreground: #fdf0d5;
+  --sidebar-accent: #669bbc;
+  --sidebar-accent-foreground: #003049;
+  --sidebar-border: rgba(253, 240, 213, 0.08);
+  --sidebar-ring: #669bbc;
+
+  /* Cinephile Tokens */
+
+  --surface: #002336;
+  --surface-hover: #12384e;
+
+  --xp: #c1121f;
+  --achievement: #c1121f;
+  --level: #669bbc;
+  --streak: #f2b84b;
+
+  --poster-shadow: rgba(0, 0, 0, 0.45);
+}
+
+/* Global Styles */
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition:
+      background-color 250ms ease,
+      color 250ms ease;
+  }
+}
+
+/* Utility Classes */
+
+@layer utilities {
+  .surface {
+    background: var(--surface);
+  }
+
+  .surface-hover:hover {
+    background: var(--surface-hover);
+  }
+
+  .xp-bar {
+    background: var(--xp);
+  }
+
+  .achievement {
+    color: var(--achievement);
+  }
+
+  .level {
+    color: var(--level);
+  }
+
+  .streak {
+    color: var(--streak);
+  }
+
+  .movie-card {
+    transition: all 0.2s ease;
+  }
+
+  .movie-card:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 30px var(--poster-shadow);
+  }
+}
+
+/*
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -109,3 +302,5 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+*/
+

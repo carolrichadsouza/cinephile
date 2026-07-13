@@ -15,15 +15,34 @@ export default function App() {
         <header className="bg-[var(--header)] text-white border-b border-border flex items-center px-6 py-4 overflow-x-auto">
           <div className="flex flex-1 items-center gap-15">
             <h1 className="text-xl font-bold">Cinephile</h1>
-              <nav className="flex flex-1 items-center min-w-0">
-                <NavLink to="/" >Home</NavLink>
-                <NavLink to="/search" >Search</NavLink>
-                <NavLink to="/watchlist" >Watchlist</NavLink>
+              <nav className="flex flex-1 items-center gap-5 min-w-0">
+                <NavLink to="/" className={({ isActive }) => 
+                  `rounded-lg px-3 py-1 transition-colors duration-300
+                  ${isActive 
+                    ? "border border-primary bg-[#D3CFCB] text-black hover:bg-[#D3CFCB]"
+                    : "border border-transparent text-[#726E69] hover:border-border hover:bg-[#D3CFCB] hover:text-black"
+  }`}>
+                  Home
+                </NavLink>
+                <NavLink to="/search" className={({ isActive }) => 
+                  `rounded-lg px-3 py-1 transition-colors duration-300 
+                  ${isActive 
+                    ? "border border-primary bg-[#D3CFCB] text-black hover:bg-[#D3CFCB]" 
+                    : "border border-transparent text-[#726E69] hover:border-border hover:bg-[#D3CFCB] hover:text-black"}`}>
+                  Search
+                </NavLink>
+                <NavLink to="/watchlist" className={({ isActive }) => 
+                  `rounded-lg px-3 py-1 transition-colors duration-300 
+                  ${isActive 
+                    ? "border border-primary bg-[#D3CFCB] text-black hover:bg-[#D3CFCB]" 
+                    : "border border-transparent text-[#726E69] hover:border-border hover:bg-[#D3CFCB] hover:text-black"}`}>
+                  Watchlist
+                </NavLink>
               </nav>
           </div>
           <div className="flex items-center gap-3">
             <div className="justify-center items-center">
-              <NavLink className="flex items-center gap-2 rounded-lg px-3 py-1 border border-primary bg-white text-black hover:bg-white whitespace-nowrap" to="/profile" >
+              <NavLink className="flex items-center gap-2 rounded-lg px-3 py-1 border border-primary bg-[#D3CFCB] text-black hover:bg-[#D3CFCB] whitespace-nowrap" to="/profile" >
               <User className="h-5 w-5 bg-gray-300 rounded-full" />
               Profile
               </NavLink>

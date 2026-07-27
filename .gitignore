@@ -449,3 +449,4 @@ Thumbs.db
 
 # PostgreSQL
 *.db
+backend/appsettings.Development.json

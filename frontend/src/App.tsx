@@ -33,7 +33,7 @@ export default function App() {
 }
 
 function AppContent() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const location = useLocation();
 
   const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
@@ -42,7 +42,7 @@ function AppContent() {
     <>
 
       {!isAuthPage && (
-      <header className="relative z-10 mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <header className="relative z-10 flex h-16 w-full items-center justify-between border-b border-border px-4 sm:px-6">
         <div className="flex items-center">
           <div className="flex items-center gap-2">
             <span className="flex size-8 items-center justify-center rounded-lg bg-destructive text-destructive-foreground">

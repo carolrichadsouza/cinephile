@@ -1,5 +1,5 @@
 import { LogOut } from "lucide-react";
-import { useAuth } from "../lib/auth-context";
+import { useAuth } from "../lib/use-auth";
 
 export default function Profile() {
     const { logout } = useAuth();

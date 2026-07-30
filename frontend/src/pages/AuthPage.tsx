@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { ModeToggle } from "../components/mode-toggle";
 import { Mail, Lock, User, ArrowRight, Flame, Trophy, Star, type LucideIcon } from "lucide-react";
 import { Button } from "../components/ui/button";
-import { useAuth } from "../lib/auth-context";
+import { useAuth } from "../lib/use-auth";
 import { ApiError } from "../lib/api";
 import { cn } from "../lib/utils";
 

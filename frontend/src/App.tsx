@@ -2,7 +2,8 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route, NavLink, useLocation } from "react-router-dom";
 import { ModeToggle } from './components/mode-toggle'
 import { ThemeProvider } from "./components/theme-provider"
-import { AuthProvider, useAuth } from "./lib/auth-context"
+import { AuthProvider } from "./lib/auth-context"
+import { useAuth } from "./lib/use-auth";
 import ProtectedRoute from "./components/ProtectedRoute"
 import Dashboard from './pages/Dashboard';
 import Search from './pages/Search';

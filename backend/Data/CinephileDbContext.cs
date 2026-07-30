@@ -19,6 +19,9 @@ public class CinephileDbContext(DbContextOptions<CinephileDbContext> options) : 
         modelBuilder.Entity<Level>(entity =>
         {
             entity.HasIndex(l => l.LevelName).IsUnique();
+
+            // Every new signup needs a starting level to attach to.
+            entity.HasData(new Level { LevelId = 1, LevelName = "Rookie Critic", PointsRequired = 0 });
         });
 
         // --- User ---

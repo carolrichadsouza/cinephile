@@ -40,12 +40,15 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-// Allows the Vite dev server (localhost:5173) to call the API during development.
+// Allows the Vite dev server and deployed frontend to call the API.
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins(
+                "http://localhost:5173",
+                "https://cinephile-mu.vercel.app"
+              )
               .AllowAnyHeader()
               .AllowAnyMethod();
     });

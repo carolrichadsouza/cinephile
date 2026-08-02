@@ -35,7 +35,7 @@ export default function Search() {
       setResults(data);
       setHasSearched(true);
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Something went wrong. Try again.");
+      setError(err instanceof ApiError ? err.message : "Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }

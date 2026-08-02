@@ -17,6 +17,14 @@ builder.Services.AddDbContext<CinephileDbContext>(options =>
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 
+var tmdbBaseUrl = builder.Configuration["Tmdb:BaseUrl"]
+    ?? throw new InvalidOperationException("Tmdb:BaseUrl is not configured.");
+builder.Services.AddHttpClient<ITmdbService, TmdbService>(client =>
+{
+    client.BaseAddress = new Uri(tmdbBaseUrl.TrimEnd('/') + "/");
+});
+builder.Services.AddScoped<IMovieCacheService, MovieCacheService>();
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

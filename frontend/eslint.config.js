@@ -9,6 +9,7 @@ export default defineConfig([
   globalIgnores(['dist']),
   {
     files: ['**/*.{ts,tsx}'],
+    ignores: ['cypress/**'],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
@@ -17,6 +18,21 @@ export default defineConfig([
     ],
     languageOptions: {
       globals: globals.browser,
+    },
+  },
+  {
+    files: ['cypress/**/*.ts'],
+    extends: [js.configs.recommended, tseslint.configs.recommended],
+    rules: {
+      "@typescript-eslint/no-namespace": "off",
+    },
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.mocha,
+        cy: 'readonly',
+        Cypress: 'readonly',
+      },
     },
   },
 ])

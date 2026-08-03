@@ -10,9 +10,11 @@ import {
   Check,
   PenSquare,
   Bookmark,
+  BookmarkCheck,
 } from "lucide-react";
 import { apiFetch, ApiError } from "../lib/api";
 import { Button } from "../components/ui/button";
+import { getWatchlist, addToWatchlist, removeFromWatchlist } from "../lib/watchlist";
 
 type MovieDetailResponse = {
   movieId: number;
@@ -35,6 +37,17 @@ export default function MovieDetail() {
 const [movie, setMovie] = useState<MovieDetailResponse | null>(null);
 const [isLoading, setIsLoading] = useState(true);
 const [error, setError] = useState<string | null>(null);
+
+  const [watchlistedIds, setWatchlistedIds] = useState<Set<number>>(new Set());
+  const [pendingIds, setPendingIds] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    getWatchlist()
+      .then((items) => setWatchlistedIds(new Set(items.map((i) => i.tmdbId))))
+      .catch(() => {
+        // Non-fatal — the toggle buttons just start assuming nothing is watchlisted.
+      });
+  }, []);
 
 useEffect(() => {
   if (!tmdbId) return;
@@ -70,7 +83,37 @@ useEffect(() => {
     );
   }
 
+  async function toggleWatchlist(tmdbId: number) {
+    if (pendingIds.has(tmdbId)) return; // avoid double-clicks mid-request
+
+    setPendingIds((prev) => new Set(prev).add(tmdbId));
+    const isWatchlisted = watchlistedIds.has(tmdbId);
+
+    try {
+      if (isWatchlisted) {
+        await removeFromWatchlist(tmdbId);
+        setWatchlistedIds((prev) => {
+          const next = new Set(prev);
+          next.delete(tmdbId);
+          return next;
+        });
+      } else {
+        await addToWatchlist(tmdbId);
+        setWatchlistedIds((prev) => new Set(prev).add(tmdbId));
+      }
+    } catch {
+        //Button just stays in its previous state, no destructive UI needed.
+    } finally {
+      setPendingIds((prev) => {
+        const next = new Set(prev);
+        next.delete(tmdbId);
+        return next;
+      });
+    }
+  }
   const year = movie.releaseDate ? movie.releaseDate.slice(0, 4) : null;
+  const isWatchlisted = watchlistedIds.has(movie.tmdbId);
+  const isPending = pendingIds.has(movie.tmdbId);
 
   return (
     <div className="mx-auto px-5 py-6">
@@ -146,8 +189,24 @@ useEffect(() => {
               <Button variant="outline" size="sm" disabled title="Coming soon">
                 <PenSquare className="size-4" /> Journal Entry
               </Button>
-              <Button variant="outline" size="sm" disabled title="Coming soon">
-                <Bookmark className="size-4" /> Add to Watchlist
+               <Button
+                type="button"
+                variant={isWatchlisted ? "default" : "outline"}
+                size="sm"
+                onClick={() => toggleWatchlist(movie.tmdbId)}
+                disabled={isPending}
+              >
+                {isWatchlisted ? (
+                  <>
+                  <BookmarkCheck className="size-4 text-gold" />
+                  Remove from Watchlist 
+                  </>
+                ) : (
+                  <>
+                  <Bookmark className="size-4" />
+                  Add to Watchlist
+                  </>
+                )}
               </Button>
             </div>
           </div>

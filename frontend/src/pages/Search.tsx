@@ -1,4 +1,5 @@
 import { useState, type FormEvent, type ChangeEvent } from "react";
+import { Link } from "react-router-dom";
 import { SearchIcon, Film } from "lucide-react";
 import { apiFetch, ApiError } from "../lib/api";
 import { Button } from "../components/ui/button";
@@ -79,8 +80,9 @@ export default function Search() {
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {results.map((movie) => (
-          <div
+          <Link
             key={movie.tmdbId}
+            to={`/movies/${movie.tmdbId}`}
             className="group overflow-hidden rounded-lg border border-border bg-card transition-shadow hover:shadow-lg"
           >
             <div className="aspect-[2/3] w-full bg-muted">
@@ -104,11 +106,9 @@ export default function Search() {
                 {movie.genres.length > 0 ? ` • ${movie.genres[0]}` : ""}
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
   );
 }
-
-

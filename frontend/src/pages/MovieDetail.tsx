@@ -102,6 +102,7 @@ useEffect(() => {
         setWatchlistedIds((prev) => new Set(prev).add(tmdbId));
       }
     } catch {
+        //Button just stays in its previous state, no destructive UI needed.
     } finally {
       setPendingIds((prev) => {
         const next = new Set(prev);

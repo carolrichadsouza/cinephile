@@ -24,6 +24,7 @@ export default function Watchlist() {
       await removeFromWatchlist(tmdbId);
       setItems((prev) => prev.filter((item) => item.tmdbId !== tmdbId));
     } catch {
+        //Button just stays in its previous state, no destructive UI needed.
     } finally {
       setRemovingIds((prev) => {
         const next = new Set(prev);

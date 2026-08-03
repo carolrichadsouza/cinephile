@@ -62,6 +62,30 @@ public class MoviesController(ITmdbService tmdb, IMovieCacheService movieCache) 
         if (movie is null)
             return NotFound(new { message = "Movie not found on TMDB." });
 
+        var detail = await tmdb.GetMovieDetailAsync(tmdbId);
+        var genres = detail?.genres?.Take(3).Select(g => g.Name).ToList() ?? [];
+
+        var credits = await tmdb.GetCreditsAsync(tmdbId);
+        var director = credits?.Crew?.FirstOrDefault(c => c.Job == "Director")?.Name;
+        var cast = credits?.Cast?.OrderBy(c => c.Order).Take(5).Select(c => c.Name).ToList() ?? [];
+
+        var providers = await tmdb.GetWatchProvidersAsync(tmdbId);
+
+        var watchProviders =
+            providers?.Results?
+                .FirstOrDefault().Value?
+                .Flatrate?
+                .Select(p => p.ProviderName)
+                .ToList()
+            ?? [];
+
+        var loggedRatings = await db.Logs
+            .Where(l => l.MovieId == movie.MovieId && l.Rating != null)
+            .Select(l => l.Rating!.Value)
+            .ToListAsync();
+        var appRating = loggedRatings.Count > 0 ? Math.Round(loggedRatings.Average(), 1) : 0;
+
+
         return Ok(new MovieResponse(
             movie.MovieId,
             movie.TmdbId,
@@ -69,7 +93,12 @@ public class MoviesController(ITmdbService tmdb, IMovieCacheService movieCache) 
             tmdb.BuildPosterUrl(movie.PosterPath),
             movie.ReleaseDate,
             movie.RuntimeMinutes,
-            null
+            detail?.Overview,
+            genres,
+            appRating,
+            director,
+            cast, 
+            watchProviders
         ));
     }
 }

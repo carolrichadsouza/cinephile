@@ -8,6 +8,8 @@ public interface ITmdbService
 {
     Task<List<TmdbMovieResult>> SearchMoviesAsync(string query);
     Task<TmdbMovieDetail?> GetMovieDetailAsync(int tmdbId);
+    Task<TmdbCreditsResponse?> GetCreditsAsync(int tmdbId);
+    Task<TmdbWatchProvidersResponse?> GetWatchProvidersAsync(int tmdbId);
     string? BuildPosterUrl(string? posterPath);
 }
 
@@ -47,6 +49,23 @@ public class TmdbService : ITmdbService
 
         return await response.Content.ReadFromJsonAsync<TmdbMovieDetail>(JsonOptions);
     }
+
+    public async Task<TmdbCreditsResponse?> GetCreditsAsync(int tmdbId)
+    {
+        var response = await _httpClient.GetAsync($"movie/{tmdbId}/credits");
+        if (!response.IsSuccessStatusCode) return null;
+
+        return await response.Content.ReadFromJsonAsync<TmdbCreditsResponse>(JsonOptions);
+    }
+
+    public async Task<TmdbWatchProvidersResponse?> GetWatchProvidersAsync(int tmdbId)
+    {
+        var response = await _httpClient.GetAsync($"movie/{tmdbId}/watch/providers");
+        if (!response.IsSuccessStatusCode) return null;
+
+        return await response.Content.ReadFromJsonAsync<TmdbWatchProvidersResponse>(JsonOptions);
+    }
+
 
     public string? BuildPosterUrl(string? posterPath) =>
         string.IsNullOrEmpty(posterPath) ? null : $"{_imageBaseUrl}{posterPath}";

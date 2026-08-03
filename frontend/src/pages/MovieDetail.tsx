@@ -32,20 +32,28 @@ type MovieDetailResponse = {
 
 export default function MovieDetail() {
   const { tmdbId } = useParams<{ tmdbId: string }>();
-  const [movie, setMovie] = useState<MovieDetailResponse | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const [movie, setMovie] = useState<MovieDetailResponse | null>(null);
+const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!tmdbId) return;
-    setIsLoading(true);
-    setError(null);
+useEffect(() => {
+  if (!tmdbId) return;
 
-    apiFetch<MovieDetailResponse>(`/movies/${tmdbId}`, { auth: true })
-      .then(setMovie)
-      .catch((err) => setError(err instanceof ApiError ? err.message : "Couldn't load this movie."))
-      .finally(() => setIsLoading(false));
-  }, [tmdbId]);
+  apiFetch<MovieDetailResponse>(`/movies/${tmdbId}`, { auth: true })
+    .then((data) => {
+      setMovie(data);
+      setError(null);
+    })
+    .catch((err) => {
+      setMovie(null);
+      setError(
+        err instanceof ApiError
+          ? err.message
+          : "Couldn't load this movie."
+      );
+    })
+    .finally(() => setIsLoading(false));
+}, [tmdbId]);
 
   if (isLoading) {
     return <div className="mx-auto px-5 py-6 text-sm text-muted-foreground">Loading...</div>;

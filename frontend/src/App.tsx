@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 import Search from './pages/Search';
 import Watchlist from './pages/Watchlist';
 import Profile from './pages/Profile';
+import MovieDetail from './pages/MovieDetail';
 import AuthPage from './pages/AuthPage';
 import {
   Sheet,
@@ -166,6 +167,7 @@ function AppContent() {
           <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/search" element={<ProtectedRoute><Search /></ProtectedRoute>} />
           <Route path="/watchlist" element={<ProtectedRoute><Watchlist /></ProtectedRoute>} />
+          <Route path="/movies/:tmdbId" element={<ProtectedRoute><MovieDetail /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         </Routes>
       </main>

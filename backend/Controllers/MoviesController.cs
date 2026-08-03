@@ -63,7 +63,7 @@ public class MoviesController(ITmdbService tmdb, IMovieCacheService movieCache) 
             return NotFound(new { message = "Movie not found on TMDB." });
 
         var detail = await tmdb.GetMovieDetailAsync(tmdbId);
-        var genres = detail?.genres?.Take(3).Select(g => g.Name).ToList() ?? [];
+        var genres = detail?.Genres?.Take(3).Select(g => g.Name).ToList() ?? [];
 
         var credits = await tmdb.GetCreditsAsync(tmdbId);
         var director = credits?.Crew?.FirstOrDefault(c => c.Job == "Director")?.Name;
@@ -79,12 +79,13 @@ public class MoviesController(ITmdbService tmdb, IMovieCacheService movieCache) 
                 .ToList()
             ?? [];
 
-        var loggedRatings = await db.Logs
-            .Where(l => l.MovieId == movie.MovieId && l.Rating != null)
-            .Select(l => l.Rating!.Value)
-            .ToListAsync();
-        var appRating = loggedRatings.Count > 0 ? Math.Round(loggedRatings.Average(), 1) : 0;
+        // var loggedRatings = await db.Logs
+        //     .Where(l => l.MovieId == movie.MovieId && l.Rating != null)
+        //     .Select(l => l.Rating!.Value)
+        //     .ToListAsync();
+        // var appRating = loggedRatings.Count > 0 ? Math.Round(loggedRatings.Average(), 1) : 0;
 
+        double appRating = appRating = 0;
 
         return Ok(new MovieResponse(
             movie.MovieId,

@@ -12,7 +12,6 @@ import {
   Film,
   PenSquare,
   Play,
-  Star,
   Trash2,
 } from "lucide-react";
 
@@ -438,10 +437,8 @@ export default function MovieDetail() {
               )}
 
               <span className="flex items-center gap-1.5">
-                <Star className="size-4 fill-gold text-gold" />
-                {movie.appRating != null
-                  ? movie.appRating.toFixed(1)
-                  : "0.0"}
+                <Rating rating={movie.appRating} />
+                <span>{movie.appRating.toFixed(1)}</span>
               </span>
             </div>
 

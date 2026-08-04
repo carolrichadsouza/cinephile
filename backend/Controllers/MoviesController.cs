@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using backend.Data;
 using backend.DTOs;
 using backend.Services;
 
@@ -8,7 +10,7 @@ namespace backend.Controllers;
 [ApiController]
 [Route("api/movies")]
 [Authorize]
-public class MoviesController(ITmdbService tmdb, IMovieCacheService movieCache) : ControllerBase
+public class MoviesController(ITmdbService tmdb, IMovieCacheService movieCache, CinephileDbContext db) : ControllerBase
 {
     private static readonly IReadOnlyDictionary<int, string> GenreNames = new Dictionary<int, string>
     {
@@ -79,13 +81,11 @@ public class MoviesController(ITmdbService tmdb, IMovieCacheService movieCache) 
                 .ToList()
             ?? [];
 
-        // var loggedRatings = await db.Logs
-        //     .Where(l => l.MovieId == movie.MovieId && l.Rating != null)
-        //     .Select(l => l.Rating!.Value)
-        //     .ToListAsync();
-        // var appRating = loggedRatings.Count > 0 ? Math.Round(loggedRatings.Average(), 1) : 0;
-
-        double appRating = appRating = 0;
+        var loggedRatings = await db.Logs
+            .Where(l => l.MovieId == movie.MovieId && l.Rating != null)
+            .Select(l => l.Rating!.Value)
+            .ToListAsync();
+        var appRating = loggedRatings.Count > 0 ? Math.Round(loggedRatings.Average(), 1) : 0;
 
         return Ok(new MovieResponse(
             movie.MovieId,

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -101,5 +102,31 @@ public class MoviesController(ITmdbService tmdb, IMovieCacheService movieCache, 
             cast, 
             watchProviders
         ));
+    }
+
+    [HttpGet("{tmdbId:int}/reviews")]
+    public async Task<ActionResult<List<MovieReviewResponse>>> GetReviews(int tmdbId)
+    {
+        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var currentUserId = int.TryParse(userIdClaim, out var id) ? id : (int?)null;
+
+        var reviews = await db.Logs
+            .Include(l => l.User)
+            .Where(l => l.Movie.TmdbId == tmdbId
+                        && l.Review != null && l.Review != ""
+                        && l.UserId != currentUserId)
+            .OrderByDescending(l => l.WatchedDate)
+            .ThenByDescending(l => l.CreatedAt)
+            .Take(20)
+            .Select(l => new MovieReviewResponse(
+                l.User.Username,
+                l.User.DisplayName,
+                l.Rating,
+                l.Review!,
+                l.WatchedDate
+            ))
+            .ToListAsync();
+
+        return Ok(reviews);
     }
 }

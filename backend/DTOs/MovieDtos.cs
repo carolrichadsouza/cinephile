@@ -83,3 +83,11 @@ public record MovieResponse(
     List<string> Cast,
     List<string> WatchProviders
 );
+
+public record MovieReviewResponse(
+    string Username,
+    string? DisplayName,
+    double? Rating,
+    string Review,
+    DateOnly WatchedDate
+);

@@ -48,6 +48,7 @@ import {
 } from "../components/ui/popover";
 import { Rating } from "../components/ui/rating";
 import { Textarea } from "../components/ui/textarea";
+import CommunityReviews from "../components/CommunityReviews";
 
 type MovieDetailResponse = {
   movieId: number;
@@ -631,10 +632,7 @@ export default function MovieDetail() {
         <h2 className="mb-3 text-xl font-bold">
           Community Reviews
         </h2>
-
-        <p className="text-sm text-muted-foreground">
-          No Reviews.
-        </p>
+          <CommunityReviews tmdbId={movie.tmdbId} />
       </div>
 
       {/* Edit journal entry dialog */}

@@ -10,6 +10,7 @@ export default function Watchlist() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [removingIds, setRemovingIds] = useState<Set<number>>(new Set());
+  const [query, setQuery] = useState<string>("");
 
   useEffect(() => {
     getWatchlist()
@@ -36,7 +37,14 @@ export default function Watchlist() {
 
   return (
     <div className="mx-auto px-5 py-6">
-      <h1 className="mb-4 text-2xl font-bold">Watchlist</h1>
+      <h1 className="mb-1 text-3xl font-bold">Your Watchlist</h1>
+      {items.length > 0 && (
+        <p className="mb-4 text-lg text-muted-foreground">
+          {items.length} movie{items.length !== 1 ? "s" : ""} waiting for the perfect night.
+        </p>
+      )}
+
+      <hr className="my-6 border-border" />
 
       {isLoading && <p className="text-sm text-muted-foreground">Loading...</p>}
       {error && <p className="text-sm text-destructive">{error}</p>}

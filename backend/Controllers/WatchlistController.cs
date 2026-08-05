@@ -12,7 +12,7 @@ namespace backend.Controllers;
 [ApiController]
 [Route("api/watchlist")]
 [Authorize]
-public class WatchlistController(CinephileDbContext db, ITmdbService tmdb, IMovieCacheService movieCache) : ControllerBase
+public class WatchlistController(CinephileDbContext db, ITmdbService tmdb, IMovieCacheService movieCache, IGamificationService gamification) : ControllerBase
 {
     private int? GetUserId()
     {
@@ -44,7 +44,7 @@ public class WatchlistController(CinephileDbContext db, ITmdbService tmdb, IMovi
     }
 
     [HttpPost]
-    public async Task<ActionResult<WatchlistItemResponse>> AddToWatchlist(AddWatchlistRequest request)
+    public async Task<ActionResult<WatchlistAddedResponse>> AddToWatchlist(AddWatchlistRequest request)
     {
         var userId = GetUserId();
         if (userId is null) return Unauthorized();
@@ -66,7 +66,9 @@ public class WatchlistController(CinephileDbContext db, ITmdbService tmdb, IMovi
         db.WatchlistEntries.Add(entry);
         await db.SaveChangesAsync();
 
-        return Ok(new WatchlistItemResponse(
+        var result = await gamification.CheckWatchlistAchievementsAsync(userId.Value);
+
+        var item = new WatchlistItemResponse(
             entry.WatchlistId,
             movie.MovieId,
             movie.TmdbId,
@@ -74,7 +76,18 @@ public class WatchlistController(CinephileDbContext db, ITmdbService tmdb, IMovi
             tmdb.BuildPosterUrl(movie.PosterPath),
             movie.ReleaseDate,
             entry.AddedAt
-        ));
+        );
+
+        var feedback = new GamificationFeedback(
+            result.PointsAwarded,
+            result.LeveledUp,
+            result.NewLevelName,
+            result.UnlockedAchievements
+                .Select(a => new AchievementUnlockDto(a.Code, a.Name, a.Details, a.Points))
+                .ToList()
+        );
+
+        return Ok(new WatchlistAddedResponse(item, feedback));
     }
 
     [HttpDelete("{tmdbId:int}")]

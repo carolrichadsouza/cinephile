@@ -43,7 +43,7 @@ export default function Watchlist() {
 
       {!isLoading && !error && items.length === 0 && (
         <p className="text-sm text-muted-foreground">
-          Nothing here yet — search for a movie and tap the bookmark icon to add it.
+          Nothing here yet! Search for a movie and tap the bookmark icon to add it.
         </p>
       )}
 

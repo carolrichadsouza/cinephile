@@ -26,6 +26,7 @@ public class MovieCacheService(CinephileDbContext db, ITmdbService tmdb) : IMovi
             PosterPath = detail.PosterPath,
             ReleaseDate = DateOnly.TryParse(detail.ReleaseDate, out var date) ? date : null,
             RuntimeMinutes = detail.Runtime,
+            Genres = detail.Genres is { Count: > 0 } ? string.Join(",", detail.Genres.Select(g => g.Name)) : null,
             CachedAt = DateTime.UtcNow
         };
 

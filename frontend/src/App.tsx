@@ -21,11 +21,13 @@ import {
 } from "./components/ui/sheet";
 
 import { Clapperboard, Menu, User } from "lucide-react";
+import { Toaster } from "sonner";
 
 export default function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthProvider>
+        <Toaster position="bottom-right" richColors />
         <Router>
           <AppContent />
         </Router>

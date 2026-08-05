@@ -49,6 +49,7 @@ import {
 import { Rating } from "../components/ui/rating";
 import { Textarea } from "../components/ui/textarea";
 import CommunityReviews from "../components/CommunityReviews";
+import { showGamificationToasts } from "../lib/gamification-toast";
 
 type MovieDetailResponse = {
   movieId: number;
@@ -191,8 +192,9 @@ export default function MovieDetail() {
           return next;
         });
       } else {
-        await addToWatchlist(movieTmdbId);
-
+        const result = await addToWatchlist(movieTmdbId);
+        showGamificationToasts(result.gamification);
+ 
         setWatchlistedIds((previous) => {
           const next = new Set(previous);
           next.add(movieTmdbId);
@@ -237,20 +239,19 @@ export default function MovieDetail() {
     setFormError(null);
 
     try {
-      const created = await createLog(movie.tmdbId, {
+      const result = await createLog(movie.tmdbId, {
         watchedDate: todayIsoDate(),
         rating: null,
         review: null,
       });
-
-      setLog(created);
-
-      setWatchedDate(
-        isoDateToDate(created.watchedDate.slice(0, 10)),
-      );
-      setRating(created.rating);
-      setReview(created.review ?? "");
-
+ 
+      setLog(result.log);
+      showGamificationToasts(result.gamification);
+ 
+      setWatchedDate(isoDateToDate(result.log.watchedDate.slice(0, 10)));
+      setRating(result.log.rating);
+      setReview(result.log.review ?? "");
+ 
       setWatchlistedIds((previous) => {
         const next = new Set(previous);
         next.delete(movie.tmdbId);
@@ -289,10 +290,16 @@ export default function MovieDetail() {
     setIsSaving(true);
 
     try {
-      const saved = log
-        ? await updateLog(log.logId, payload)
-        : await createLog(movie.tmdbId, payload);
-
+      let saved: LogItem;
+ 
+      if (log) {
+        saved = await updateLog(log.logId, payload);
+      } else {
+        const result = await createLog(movie.tmdbId, payload);
+        saved = result.log;
+        showGamificationToasts(result.gamification);
+      }
+ 
       setLog(saved);
       setIsLogDialogOpen(false);
 

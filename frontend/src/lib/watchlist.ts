@@ -1,4 +1,5 @@
 import { apiFetch } from "./api";
+import type { GamificationFeedback } from "./gamification-toast";
 
 export type WatchlistItem = {
   watchlistId: number;
@@ -11,12 +12,17 @@ export type WatchlistItem = {
   addedAt: string;
 };
 
+export type WatchlistAddedResult = {
+  item: WatchlistItem;
+  gamification: GamificationFeedback;
+};
+
 export function getWatchlist() {
   return apiFetch<WatchlistItem[]>("/watchlist", { auth: true });
 }
 
 export function addToWatchlist(tmdbId: number) {
-  return apiFetch<WatchlistItem>("/watchlist", {
+  return apiFetch<WatchlistAddedResult>("/watchlist", {
     method: "POST",
     auth: true,
     body: { tmdbId },

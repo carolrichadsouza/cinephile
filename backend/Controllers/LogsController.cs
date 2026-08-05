@@ -12,7 +12,7 @@ namespace backend.Controllers;
 [ApiController]
 [Route("api/logs")]
 [Authorize]
-public class LogsController(CinephileDbContext db, ITmdbService tmdb, IMovieCacheService movieCache) : ControllerBase
+public class LogsController(CinephileDbContext db, ITmdbService tmdb, IMovieCacheService movieCache, IGamificationService gamification) : ControllerBase
 {
     private int? GetUserId()
     {
@@ -62,7 +62,7 @@ public class LogsController(CinephileDbContext db, ITmdbService tmdb, IMovieCach
     }
 
     [HttpPost]
-    public async Task<ActionResult<LogResponse>> CreateLog(CreateLogRequest request)
+    public async Task<ActionResult<LogCreatedResponse>> CreateLog(CreateLogRequest request)
     {
         var userId = GetUserId();
         if (userId is null) return Unauthorized();
@@ -84,6 +84,8 @@ public class LogsController(CinephileDbContext db, ITmdbService tmdb, IMovieCach
             });
         }
 
+        var hasReview = !string.IsNullOrWhiteSpace(request.Review);
+
         var log = new Log
         {
             UserId = userId.Value,
@@ -93,7 +95,7 @@ public class LogsController(CinephileDbContext db, ITmdbService tmdb, IMovieCach
             Review = string.IsNullOrWhiteSpace(request.Review)
             ? null
             : request.Review.Trim(),
-            PointsEarned = 0
+            PointsEarned = gamification.CalculateLogPoints(hasReview)
         };
         db.Logs.Add(log);
 
@@ -105,11 +107,23 @@ public class LogsController(CinephileDbContext db, ITmdbService tmdb, IMovieCach
 
         await db.SaveChangesAsync();
 
+        var result = await gamification.ApplyLogGamificationAsync(userId.Value, log);
+
         log.Movie = movie;
+
+        var feedback = new GamificationFeedback(
+            result.PointsAwarded,
+            result.LeveledUp,
+            result.NewLevelName,
+            result.UnlockedAchievements
+                .Select(a => new AchievementUnlockDto(a.Code, a.Name, a.Details, a.Points))
+                .ToList()
+        );
+
         return CreatedAtAction(
             nameof(GetLog),
             new { id = log.LogId },
-            ToResponse(log)
+            new LogCreatedResponse(ToResponse(log), feedback)
         );
     }
 
@@ -143,8 +157,13 @@ public class LogsController(CinephileDbContext db, ITmdbService tmdb, IMovieCach
         if (log is null || log.UserId != userId)
             return NotFound(new { message = "Log not found." });
 
+        var pointsToRevert = log.PointsEarned;
+
         db.Logs.Remove(log);
         await db.SaveChangesAsync();
+
+        await gamification.RevertLogPointsAsync(userId.Value, pointsToRevert);
+
         return NoContent();
     }
 }

@@ -9,5 +9,9 @@ public record UserProfileResponse(
     string? AvatarPath,
     int Points,
     int LevelId,
-    string LevelName
+    string LevelName,
+    int PointsForCurrentLevel,
+    string? NextLevelName,
+    int? PointsForNextLevel,
+    int CurrentStreak
 );

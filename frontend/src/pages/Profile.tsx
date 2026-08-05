@@ -3,7 +3,6 @@ import { formatDistanceToNow } from "date-fns";
 import {
   LogOut,
   User as UserIcon,
-  Pencil,
   Award,
   Film,
   Bookmark,

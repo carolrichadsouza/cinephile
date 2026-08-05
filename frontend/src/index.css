@@ -7,6 +7,14 @@
   --font-sans: "Geist Variable", sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", monospace;
   --font-heading: "Fraunces Variable", serif;
+
+    /* Progress Colors */
+  --color-bronze: #CD7F32;
+  --color-silver: #A8B2C1;
+  --color-gold: #F4C542;
+  --color-emerald: #22C55E;
+  --color-sapphire: #3B82F6;
+
 }
 
 @theme inline {

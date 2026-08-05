@@ -10,7 +10,6 @@ export default function Watchlist() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [removingIds, setRemovingIds] = useState<Set<number>>(new Set());
-  const [query, setQuery] = useState<string>("");
 
   useEffect(() => {
     getWatchlist()

@@ -100,7 +100,7 @@ public class UsersController(CinephileDbContext db, IGamificationService gamific
 
         var watchActivity = logs.Select(l => new ActivityItem(
             "watched",
-            l.Rating != null ? $"Watched \"{l.Movie.Title}\" — rated {l.Rating}/5" : $"Watched \"{l.Movie.Title}\"",
+            l.Rating != null ? $"Watched \"{l.Movie.Title}\" | rated {l.Rating}/5" : $"Watched \"{l.Movie.Title}\"",
             l.CreatedAt
         ));
 

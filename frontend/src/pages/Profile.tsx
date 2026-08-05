@@ -19,7 +19,7 @@ import { useAuth } from "../lib/use-auth";
 import { getMyProfile, getMyStats, getAchievements, type UserProfile, type ProfileStats, type Achievement } from "../lib/profile";
 import { Button } from "../components/ui/button";
 
-const GENRE_COLORS = ["bg-gold", "bg-sapphire", "bg-emerald", "bg-bronze", "bg-silver"];
+const GENRE_COLORS = ["bg-destructive", "bg-sapphire", "bg-emerald", "bg-bronze", "bg-silver"];
 
 function activityIcon(type: string) {
   if (type === "achievement") return <Award className="size-4" />;
@@ -52,7 +52,7 @@ export default function Profile() {
   }
 
   if (error || !profile || !stats) {
-    return <div className="px-5 py-6 text-sm text-gold">{error ?? "Something went wrong."}</div>;
+    return <div className="px-5 py-6 text-sm text-destructive">{error ?? "Something went wrong."}</div>;
   }
 
   const pointsIntoLevel = profile.points - profile.pointsForCurrentLevel;
@@ -99,7 +99,7 @@ export default function Profile() {
       <div className="mb-6 rounded-xl border border-border bg-card p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <div className="flex shrink-0 flex-col items-center justify-center rounded-lg border border-border px-4 py-2">
-            <Award className="size-5 text-gold" />
+            <Award className="size-5 text-destructive" />
             <span className="text-xs font-semibold">Level {profile.levelId}</span>
           </div>
           <div className="flex-1">
@@ -110,7 +110,7 @@ export default function Profile() {
               </span>
             </div>
             <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-muted">
-              <div className="h-full rounded-full bg-gold" style={{ width: `${levelProgressPct}%` }} />
+              <div className="h-full rounded-full bg-destructive" style={{ width: `${levelProgressPct}%` }} />
             </div>
             <p className="mt-1 text-xs text-muted-foreground">
               {profile.points} XP{profile.pointsForNextLevel != null ? ` / ${profile.pointsForNextLevel} XP` : ""}
@@ -145,10 +145,10 @@ export default function Profile() {
         {achievements.map((a) => (
           <div key={a.code} className="rounded-lg border border-border bg-card p-4">
             <div className="mb-2 flex items-start justify-between gap-2">
-              <span className={`flex size-8 items-center justify-center rounded-full ${a.earned ? "bg-gold/15 text-gold" : "bg-muted text-muted-foreground"}`}>
+              <span className={`flex size-8 items-center justify-center rounded-full ${a.earned ? "bg-destructive/15 text-destructive" : "bg-muted text-muted-foreground"}`}>
                 {a.earned ? <Award className="size-4" /> : <Lock className="size-3.5" />}
               </span>
-              {a.earned && <span className="rounded-full bg-gold/15 px-2 py-0.5 text-[10px] font-semibold text-gold">UNLOCKED</span>}
+              {a.earned && <span className="rounded-full bg-destructive/15 px-2 py-0.5 text-[10px] font-semibold text-destructive">UNLOCKED</span>}
             </div>
             <p className="text-sm font-semibold">{a.name}</p>
             <p className="mt-0.5 text-xs text-muted-foreground">{a.details}</p>
@@ -156,7 +156,7 @@ export default function Profile() {
               <div className="mt-2">
                 <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
                   <div
-                    className="h-full rounded-full bg-gold"
+                    className="h-full rounded-full bg-destructive"
                     style={{ width: `${Math.min(100, (a.currentProgress / a.targetProgress) * 100)}%` }}
                   />
                 </div>

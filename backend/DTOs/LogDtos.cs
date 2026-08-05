@@ -26,3 +26,5 @@ public record LogResponse(
     string? Review,
     DateTime CreatedAt
 );
+
+public record LogCreatedResponse(LogResponse Log, GamificationFeedback Gamification);

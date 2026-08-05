@@ -11,3 +11,5 @@ public record WatchlistItemResponse(
     DateOnly? ReleaseDate,
     DateTime AddedAt
 );
+
+public record WatchlistAddedResponse(WatchlistItemResponse Item, GamificationFeedback Gamification);

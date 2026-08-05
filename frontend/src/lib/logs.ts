@@ -1,4 +1,5 @@
 import { apiFetch } from "./api";
+import type { GamificationFeedback } from "./gamification-toast";
 
 export type LogItem = {
   logId: number;
@@ -18,12 +19,17 @@ export type LogPayload = {
   review: string | null;
 };
 
+export type LogCreatedResult = {
+  log: LogItem;
+  gamification: GamificationFeedback;
+};
+
 export function getLogs() {
   return apiFetch<LogItem[]>("/logs", { auth: true });
 }
 
 export function createLog(tmdbId: number, payload: LogPayload) {
-  return apiFetch<LogItem>("/logs", {
+  return apiFetch<LogCreatedResult>("/logs", {
     method: "POST",
     auth: true,
     body: { tmdbId, ...payload },

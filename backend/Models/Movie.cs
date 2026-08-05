@@ -18,6 +18,8 @@ public class Movie
 
     public DateTime CachedAt { get; set; } = DateTime.UtcNow;
 
+    public string? Genres { get; set; }
+
     public List<Log> Logs { get; set; } = [];
     public List<Watchlist> WatchlistEntries { get; set; } = [];
 }

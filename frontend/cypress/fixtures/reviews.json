@@ -1,0 +1,5 @@
+[
+  { "username": "alice", "displayName": "Alice", "rating": 5, "review": "A beautiful and emotional science-fiction film.", "watchedDate": "2026-08-01T00:00:00Z" },
+  { "username": "bob", "displayName": null, "rating": 4.5, "review": "Excellent visuals and soundtrack.", "watchedDate": "2026-07-30T00:00:00Z" },
+  { "username": "charlie", "displayName": "Charlie", "rating": 4, "review": "Long, but worth watching.", "watchedDate": "2026-07-25T00:00:00Z" }
+]

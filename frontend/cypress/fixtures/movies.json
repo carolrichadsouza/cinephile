@@ -1,0 +1,18 @@
+[
+  {
+    "tmdbId": 157336,
+    "title": "Interstellar",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/test.jpg",
+    "releaseDate": "2014-11-05",
+    "genres": ["Science Fiction"],
+    "overview": "A team travels through a wormhole in space."
+  },
+  {
+    "tmdbId": 27205,
+    "title": "Inception",
+    "posterUrl": null,
+    "releaseDate": "2010-07-15",
+    "genres": ["Action"],
+    "overview": "A thief enters dreams."
+  }
+]

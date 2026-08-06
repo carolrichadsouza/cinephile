@@ -1,0 +1,15 @@
+{
+  "userId": 1,
+  "username": "cypressuser",
+  "email": "cypress@example.com",
+  "displayName": "Cypress User",
+  "bio": "Movie lover",
+  "avatarPath": null,
+  "points": 40,
+  "levelId": 1,
+  "levelName": "Newcomer",
+  "pointsForCurrentLevel": 0,
+  "nextLevelName": "Film Fan",
+  "pointsForNextLevel": 100,
+  "currentStreak": 2
+}

@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 import type { TestUser } from "../support/commands";
 
-function uniqueUser(prefix: string): TestUser {
-  const id = Date.now() + Math.floor(Math.random() * 1000);
+function makeUser(prefix: string): TestUser {
+  const id = `${Date.now()}${Cypress._.random(1000, 9999)}`;
   return {
     username: `${prefix}${id}`,
     email: `${prefix}${id}@example.com`,
@@ -10,9 +10,9 @@ function uniqueUser(prefix: string): TestUser {
   };
 }
 
-describe("Registration", () => {
-  it("Creates a new account and lands on the main dashboard", () => {
-    const user = uniqueUser("e2ereg");
+describe("Authentication", () => {
+  it("registers a new user and lands on the dashboard", () => {
+    const user = makeUser("register");
 
     cy.visit("/register");
     cy.get('input[placeholder="username"]').type(user.username);
@@ -22,80 +22,74 @@ describe("Registration", () => {
 
     cy.url().should("eq", `${Cypress.config("baseUrl")}/`);
     cy.contains(user.username).should("be.visible");
+    cy.window().its("localStorage.cinephile_token").should("be.a", "string");
   });
 
-  it("Shows a conflict error if the email is already registered", () => {
-    const existing = uniqueUser("e2edupe");
-    cy.registerViaApi(existing);
+  it("rejects a weak password before sending registration", () => {
+    cy.intercept("POST", "**/api/auth/register").as("registerRequest");
+    cy.visit("/register");
+    cy.get('input[placeholder="username"]').type("weakpassworduser");
+    cy.get('input[type="email"]').type("weak@example.com");
+    cy.get('input[type="password"]').type("password");
+    cy.get('form button[type="submit"]').click();
+
+    cy.get('input[type="password"]')
+    .then(($input) => {
+      expect(($input[0] as HTMLInputElement).validity.valid).to.eq(false);
+    });
+
+    cy.get("@registerRequest.all").should("have.length", 0);
+  });
+
+  it("shows duplicate-email and duplicate-username errors", () => {
+    const existing = makeUser("duplicate");
+    cy.registerViaApi(existing).its("status").should("be.oneOf", [200, 201]);
 
     cy.visit("/register");
-    cy.get('input[placeholder="username"]').type(`${existing.username}2`);
+    cy.get('input[placeholder="username"]').type(`${existing.username}x`);
     cy.get('input[type="email"]').type(existing.email);
     cy.get('input[type="password"]').type(existing.password);
     cy.get('form button[type="submit"]').click();
-
     cy.contains(/already registered/i).should("be.visible");
-    cy.url().should("include", "/register");
-  });
 
-  it("Shows a conflict error if the username is already taken", () => {
-    const existing = uniqueUser("e2edupe");
-    cy.registerViaApi(existing);
-
-    cy.visit("/register");
-    cy.get('input[placeholder="username"]').type(`${existing.username}2`);
-    cy.get('input[type="email"]').type(`${existing.email}2`);
-    cy.get('input[type="password"]').type(existing.password);
+    cy.get('input[placeholder="username"]').clear().type(existing.username);
+    cy.get('input[type="email"]').clear().type(`x${existing.email}`);
     cy.get('form button[type="submit"]').click();
-
-    cy.contains(/username already taken/i).should("be.visible");
-    cy.url().should("include", "/register");
+    cy.contains(/username is already taken/i).should("be.visible");
   });
-});
 
-describe("Login", () => {
-  const user = uniqueUser("e2elogin");
-
-  before(() => {
+  it("logs in with valid credentials and rejects a wrong password", () => {
+    const user = makeUser("login");
     cy.registerViaApi(user);
-  });
 
-  it("Logs in with valid credentials", () => {
-    cy.visit("/login");
-    cy.get('input[type="email"]').type(user.email);
-    cy.get('input[type="password"]').type(user.password);
-    cy.get('form button[type="submit"]').click();
-
-    cy.url().should("eq", `${Cypress.config("baseUrl")}/`);
-    cy.contains(user.username).should("be.visible");
-  });
-
-  it("Shows an error for the wrong password", () => {
     cy.visit("/login");
     cy.get('input[type="email"]').type(user.email);
     cy.get('input[type="password"]').type("WrongPassword123!");
     cy.get('form button[type="submit"]').click();
-
     cy.contains(/invalid email or password/i).should("be.visible");
-    cy.url().should("include", "/login");
-  });
-});
 
-describe("Protected routes", () => {
-  it("Redirects unauthenticated visitors to the login page", () => {
-    cy.visit("/");
-    cy.url().should("include", "/login");
+    cy.get('input[type="password"]').clear().type(user.password);
+    cy.get('form button[type="submit"]').click();
+    cy.url().should("eq", `${Cypress.config("baseUrl")}/`);
   });
-});
 
-describe("Logout", () => {
-  it("Logs the user out and redirects to the login page", () => {
-    const user = uniqueUser("e2elogout");
+  it("redirects unauthenticated users away from every protected route", () => {
+    ["/", "/search", "/watchlist", "/profile", "/movies/157336"].forEach((path) => {
+      cy.visit(path);
+      cy.url().should("include", "/login");
+    });
+  });
+
+  it("logs out and clears stored authentication", () => {
+    const user = makeUser("logout");
     cy.registerViaApi(user);
     cy.visitAuthenticated("/profile", user);
-
     cy.contains("button", "Log out").click();
 
     cy.url().should("include", "/login");
+    cy.window().then((win) => {
+      expect(win.localStorage.getItem("cinephile_token")).to.be.null;
+      expect(win.localStorage.getItem("cinephile_user")).to.be.null;
+    });
   });
 });

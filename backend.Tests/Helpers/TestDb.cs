@@ -20,8 +20,8 @@ internal static class TestDb
 
     public static async Task<User> AddUserAsync(
         CinephileDbContext db,
-        string username = "carol",
-        string email = "carol@example.com",
+        string username = "testing",
+        string email = "testing@example.com",
         int points = 0,
         int levelId = 1)
     {

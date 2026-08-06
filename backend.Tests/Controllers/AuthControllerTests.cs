@@ -86,7 +86,7 @@ public class AuthControllerTests
 
     [Theory]
     [InlineData("missing@example.com", "Password123!")]
-    [InlineData("carol@example.com", "WrongPassword")]
+    [InlineData("testing@example.com", "WrongPassword")]
     public async Task Login_ReturnsSameUnauthorizedResponseForUnknownEmailOrWrongPassword(string email, string password)
     {
         await using var db = TestDb.Create();

@@ -11,9 +11,9 @@ vi.mock("../../lib/profile", () => ({
 }));
 vi.mock("../../lib/api", () => ({ apiFetch: vi.fn() }));
 vi.mock("../../components/ui/carousel", () => ({
-  Carousel: ({ children }: any) => <div>{children}</div>,
-  CarouselContent: ({ children }: any) => <div>{children}</div>,
-  CarouselItem: ({ children }: any) => <div>{children}</div>,
+  Carousel: ({ children }: {children: React.ReactNode}) => <div>{children}</div>,
+  CarouselContent: ({ children }: {children: React.ReactNode}) => <div>{children}</div>,
+  CarouselItem: ({ children }: {children: React.ReactNode}) => <div>{children}</div>,
   CarouselNext: () => null,
   CarouselPrevious: () => null,
 }));

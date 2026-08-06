@@ -24,8 +24,8 @@ public class TokenServiceTests
         var user = new User
         {
             UserId = 42,
-            Username = "carol",
-            Email = "carol@example.com",
+            Username = "testing",
+            Email = "testing@example.com",
             PasswordHash = "hash",
             LevelId = 1
         };
@@ -36,8 +36,8 @@ public class TokenServiceTests
         Assert.Equal("cinephile-tests", token.Issuer);
         Assert.Contains("cinephile-client", token.Audiences);
         Assert.Equal("42", token.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
-        Assert.Equal("carol", token.Claims.Single(c => c.Type == ClaimTypes.Name).Value);
-        Assert.Equal("carol@example.com", token.Claims.Single(c => c.Type == ClaimTypes.Email).Value);
+        Assert.Equal("testing", token.Claims.Single(c => c.Type == ClaimTypes.Name).Value);
+        Assert.Equal("testing@example.com", token.Claims.Single(c => c.Type == ClaimTypes.Email).Value);
         Assert.InRange(token.ValidTo, DateTime.UtcNow.AddDays(6.9), DateTime.UtcNow.AddDays(7.1));
     }
 

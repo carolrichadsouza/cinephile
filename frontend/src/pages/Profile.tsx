@@ -66,7 +66,7 @@ export default function Profile() {
   const favoriteGenres = stats.genreBreakdown.slice(0, 3).map((g) => g.genre);
 
   return (
-    <div className="mx-auto max-w-5xl px-5 py-6">
+    <div className="mx-auto px-5 py-6">
       {/* Header */}
       <div className="mb-6 flex flex-col gap-4 rounded-xl border border-border bg-card p-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4">
@@ -74,7 +74,7 @@ export default function Profile() {
             <UserIcon className="size-8 text-muted-foreground" />
           </span>
           <div>
-            <h1 className="text-xl font-bold">{profile.displayName || profile.username}</h1>
+            <h1 className="text-2xl font-bold">{profile.displayName || profile.username}</h1>
             {favoriteGenres.length > 0 && (
               <div className="mt-2 flex flex-wrap items-center gap-1.5">
                 <span className="text-xs text-muted-foreground">Favorite genres:</span>

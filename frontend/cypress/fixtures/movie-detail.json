@@ -1,0 +1,14 @@
+{
+  "movieId": 1,
+  "tmdbId": 157336,
+  "title": "Interstellar",
+  "posterUrl": "https://image.tmdb.org/t/p/w500/test.jpg",
+  "releaseDate": "2014-11-05",
+  "runtimeMinutes": 169,
+  "overview": "A team travels through a wormhole in space.",
+  "genres": ["Science Fiction", "Drama", "Adventure"],
+  "appRating": 4.5,
+  "director": "Christopher Nolan",
+  "cast": ["Matthew McConaughey", "Anne Hathaway"],
+  "watchProviders": ["Netflix"]
+}

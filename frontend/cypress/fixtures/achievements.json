@@ -1,0 +1,22 @@
+[
+  {
+    "code": "FIRST_WATCH",
+    "name": "First Watch",
+    "details": "Log your first movie",
+    "points": 10,
+    "earned": true,
+    "earnedAt": "2026-08-05T10:00:00Z",
+    "currentProgress": 1,
+    "targetProgress": 1
+  },
+  {
+    "code": "TEN_REVIEWS",
+    "name": "Critic in Training",
+    "details": "Write 10 reviews",
+    "points": 50,
+    "earned": false,
+    "earnedAt": null,
+    "currentProgress": 2,
+    "targetProgress": 10
+  }
+]

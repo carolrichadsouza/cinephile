@@ -1,0 +1,18 @@
+{
+  "filmsWatched": 3,
+  "inWatchlist": 2,
+  "reviewsWritten": 2,
+  "hoursWatched": 6.5,
+  "favoriteGenre": "Science Fiction",
+  "watchedThisYear": 3,
+  "currentStreak": 2,
+  "averageRating": 4.5,
+  "genreBreakdown": [
+    { "genre": "Science Fiction", "percentage": 66.7 },
+    { "genre": "Drama", "percentage": 33.3 }
+  ],
+  "recentActivity": [
+    { "type": "achievement", "description": "Unlocked \"First Watch\"", "timestamp": "2026-08-05T10:00:00Z" },
+    { "type": "reviewed", "description": "Reviewed \"Interstellar\"", "timestamp": "2026-08-04T10:00:00Z" }
+  ]
+}

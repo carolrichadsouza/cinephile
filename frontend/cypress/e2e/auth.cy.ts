@@ -88,8 +88,8 @@ describe("Authentication", () => {
 
     cy.url().should("include", "/login");
     cy.window().then((win) => {
-      expect(win.localStorage.getItem("cinephile_token")).to.be.null;
-      expect(win.localStorage.getItem("cinephile_user")).to.be.null;
+      expect(win.localStorage.getItem("cinephile_token")).to.equal(null);
+      expect(win.localStorage.getItem("cinephile_user")).to.equal(null);
     });
   });
 });

@@ -7,6 +7,9 @@ namespace backend.Services;
 public interface ITmdbService
 {
     Task<List<TmdbMovieResult>> SearchMoviesAsync(string query);
+    Task<List<TmdbMovieResult>> GetTrendingMoviesAsync();
+    Task<List<TmdbMovieResult>> GetPopularMoviesAsync();
+    Task<List<TmdbMovieResult>> DiscoverByGenreAsync(int genreId);
     Task<TmdbMovieDetail?> GetMovieDetailAsync(int tmdbId);
     Task<TmdbCreditsResponse?> GetCreditsAsync(int tmdbId);
     Task<TmdbWatchProvidersResponse?> GetWatchProvidersAsync(int tmdbId);
@@ -42,6 +45,33 @@ public class TmdbService : ITmdbService
         return body?.Results ?? [];
     }
 
+    public async Task<List<TmdbMovieResult>> GetTrendingMoviesAsync()
+    {
+        var response = await _httpClient.GetAsync("trending/movie/week");
+        response.EnsureSuccessStatusCode();
+
+        var body = await response.Content.ReadFromJsonAsync<TmdbSearchResponse>(JsonOptions);
+        return body?.Results ?? [];
+    }
+
+    public async Task<List<TmdbMovieResult>> GetPopularMoviesAsync()
+    {
+        var response = await _httpClient.GetAsync("movie/popular");
+        response.EnsureSuccessStatusCode();
+
+        var body = await response.Content.ReadFromJsonAsync<TmdbSearchResponse>(JsonOptions);
+        return body?.Results ?? [];
+    }
+
+    public async Task<List<TmdbMovieResult>> DiscoverByGenreAsync(int genreId)
+    {
+        var response = await _httpClient.GetAsync($"discover/movie?with_genres={genreId}&sort_by=popularity.desc");
+        response.EnsureSuccessStatusCode();
+
+        var body = await response.Content.ReadFromJsonAsync<TmdbSearchResponse>(JsonOptions);
+        return body?.Results ?? [];
+    }
+
     public async Task<TmdbMovieDetail?> GetMovieDetailAsync(int tmdbId)
     {
         var response = await _httpClient.GetAsync($"movie/{tmdbId}");
@@ -65,7 +95,6 @@ public class TmdbService : ITmdbService
 
         return await response.Content.ReadFromJsonAsync<TmdbWatchProvidersResponse>(JsonOptions);
     }
-
 
     public string? BuildPosterUrl(string? posterPath) =>
         string.IsNullOrEmpty(posterPath) ? null : $"{_imageBaseUrl}{posterPath}";

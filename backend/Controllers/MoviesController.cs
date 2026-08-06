@@ -44,19 +44,61 @@ public class MoviesController(ITmdbService tmdb, IMovieCacheService movieCache, 
 
         var results = await tmdb.SearchMoviesAsync(query);
 
-        return Ok(results.Select(r => new MovieSearchResult(
-            r.Id,
-            r.Title,
-            tmdb.BuildPosterUrl(r.PosterPath),
-            r.ReleaseDate,
-            r.GenreIds
-                .Where(GenreNames.ContainsKey)
-                .Select(id => GenreNames[id])
-                .Take(1)
-                .ToArray(),
-            r.Overview
-        )).ToList());
+        return Ok(results.Select(ToSearchResult).ToList());
     }
+
+    [HttpGet("trending")]
+    public async Task<ActionResult<List<MovieSearchResult>>> GetTrending()
+    {
+        var results = await tmdb.GetTrendingMoviesAsync();
+        return Ok(results.Select(ToSearchResult).ToList());
+    }
+
+    [HttpGet("recommended")]
+    public async Task<ActionResult<List<MovieSearchResult>>> GetRecommended()
+    {
+        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = int.TryParse(userIdClaim, out var id) ? id : (int?)null;
+
+        var genreTags = new List<string>();
+        if (userId is not null)
+        {
+            genreTags = await db.Logs
+                .Where(l => l.UserId == userId && l.Movie.Genres != null)
+                .Select(l => l.Movie.Genres!)
+                .ToListAsync();
+        }
+
+        var favoriteGenreName = genreTags
+            .SelectMany(g => g.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+            .GroupBy(g => g, StringComparer.OrdinalIgnoreCase)
+            .OrderByDescending(g => g.Count())
+            .Select(g => g.Key)
+            .FirstOrDefault();
+
+        var favoriteGenreId = favoriteGenreName is null
+            ? (int?)null
+            : GenreNames.FirstOrDefault(kv => string.Equals(kv.Value, favoriteGenreName, StringComparison.OrdinalIgnoreCase)).Key;
+
+        var results = favoriteGenreId is not null
+            ? await tmdb.DiscoverByGenreAsync(favoriteGenreId.Value)
+            : await tmdb.GetPopularMoviesAsync();
+
+        return Ok(results.Select(ToSearchResult).ToList());
+    }
+
+    private MovieSearchResult ToSearchResult(TmdbMovieResult r) => new(
+        r.Id,
+        r.Title,
+        tmdb.BuildPosterUrl(r.PosterPath),
+        r.ReleaseDate,
+        r.GenreIds
+            .Where(GenreNames.ContainsKey)
+            .Select(id => GenreNames[id])
+            .Take(1)
+            .ToArray(),
+        r.Overview
+    );
 
     [HttpGet("{tmdbId:int}")]
     public async Task<ActionResult<MovieResponse>> GetByTmdbId(int tmdbId)

@@ -53,3 +53,9 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
+
+      - name: Build backend
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Run tests
+        run: dotnet test --no-build --configuration Release --logger "trx;LogFile

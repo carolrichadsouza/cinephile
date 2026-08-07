@@ -1,13 +1,4 @@
-# 🎬 Cinephile
-
-> A full-stack gamified movie tracking platform built with React, TypeScript, ASP.NET Core, and PostgreSQL.
-
-![Status](https://img.shields.io/badge/status-active-success)
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
-![.NET](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-336791?logo=postgresql)
-![License](https://img.shields.io/badge/license-Educational-blue)
+# Cinephile
 
 Cinephile is a full-stack web application that helps users discover, track, and review movies while encouraging consistent engagement through **gamification**. Users can search for films, maintain a personalised watchlist, record watched movies, write reviews, rate films, unlock achievements, gain experience points (XP), and level up as they continue their movie journey.
 
@@ -15,17 +6,17 @@ This project was developed as part of the **Microsoft Student Accelerator (MSA) 
 
 ---
 
-# 🌐 Live Application
+## Live Application
 
-## Frontend
+### Frontend
 
 **https://cinephile-mu.vercel.app/**
 
-## API Documentation (Scalar)
+### API Documentation (Scalar)
 
-**https://cinephile-api-dub2aababvacgng5.newzealandnorth-01.azurewebsites.net/scalar**
+**https://cinephile-api-dub2aababvacgng5.newzealandnorth-01.azurewebsites.net/scalar/v1**
 
-## Project Wiki
+### Project Wiki
 
 Planning, wireframes, architecture decisions and early project documentation can be found here:
 
@@ -33,7 +24,7 @@ Planning, wireframes, architecture decisions and early project documentation can
 
 ---
 
-# 📖 Project Overview
+## Project Overview
 
 Movie tracking applications often focus only on storing lists of watched films. Cinephile expands on this concept by introducing **game mechanics** that motivate users to continue logging their viewing habits.
 
@@ -55,9 +46,59 @@ Users can:
 
 ---
 
-# ✨ Features
+### Tech Stack
 
-## 🔐 Authentication
+#### Frontend
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS v4
+- Shadcn UI
+- React Router
+- Lucide React
+- Sonner
+
+#### Backend
+
+- ASP.NET Core Web API (.NET 10)
+- Entity Framework Core
+- JWT Authentication
+- BCrypt Password Hashing
+- Scalar API Documentation
+
+#### Database
+
+- PostgreSQL
+
+#### External APIs
+
+- The Movie Database (TMDB)
+
+#### Testing
+
+- **Backend:** xUnit, Moq
+- **Frontend:** Vitest, React Testing Library
+- **End-to-End:** Cypress
+
+#### DevOps & Deployment
+
+- GitHub Actions (CI)
+- Azure App Service (Backend)
+- Vercel (Frontend)
+
+#### Development Tools
+
+- Visual Studio Code
+- Visual Studio
+- Git & GitHub
+- Postman
+
+--- 
+
+### Features
+
+#### Authentication
 
 - Secure user registration
 - Secure login using JWT authentication
@@ -65,9 +106,7 @@ Users can:
 - Protected routes
 - Persistent user sessions
 
----
-
-## 🎥 Movie Discovery
+#### Movie Discovery
 
 - Search movies using TMDB
 - Movie details page
@@ -76,9 +115,7 @@ Users can:
 - Release dates
 - Movie overview
 
----
-
-## 📝 Personal Movie Journal
+#### Personal Movie Journal
 
 Users can:
 
@@ -90,17 +127,13 @@ Users can:
 - Edit existing logs
 - Delete movie logs
 
----
-
-## 👥 Community Features
+#### Community Features
 
 - View reviews written by other users
 - Browse community ratings
 - Read detailed reviews for each movie
 
----
-
-## 🎮 Gamification
+#### Gamification
 
 Cinephile rewards users for engaging with the platform.
 
@@ -114,9 +147,7 @@ Current gamification features include:
 - Achievement unlock notifications
 - XP notifications
 
----
-
-## 👤 User Profile
+#### User Profile
 
 Each user has a personalised profile containing:
 
@@ -130,805 +161,145 @@ Each user has a personalised profile containing:
 
 ---
 
-## 🎨 Modern User Experience
+## Screenshots
 
-- Responsive design
-- Light mode
-- Dark mode
-- Mobile-friendly layout
-- Accessible UI components
-- Clean modern interface built using Shadcn UI
+### Login
 
----
+![Login Screenshot]()
 
-# 📷 Application Screenshots
+### Dashboard
 
-> **Replace these placeholders with screenshots before submission.**
+![Dashboard Screenshot]()
 
-## Login
+### Search
 
-![Login Screenshot](docs/screenshots/login.png)
+![Search Screenshot]()
 
----
+### Movie Details
 
-## Dashboard
+![Movie Details Screenshot]()
 
-![Dashboard Screenshot](docs/screenshots/dashboard.png)
+### Watchlist
 
----
+![Watchlist Screenshot]()
 
-## Search
+### Profile
 
-![Search Screenshot](docs/screenshots/search.png)
+![Profile Screenshot]()
 
----
+### Achievements
 
-## Movie Details
+![Achievements Screenshot]()
 
-![Movie Details Screenshot](docs/screenshots/movie-details.png)
+### Dark Mode
+
+![Dark Mode Screenshot]()
 
 ---
 
-## Watchlist
+## How Cinephile relates to the theme?
 
-![Watchlist Screenshot](docs/screenshots/watchlist.png)
+The theme of this project is gamification. Movie tracking applications traditionally allow users to record the films they have watched, but they often provide little incentive for continued engagement. Cinephile addresses this by incorporating game-inspired mechanics such as XP, levels, achievements, and viewing streaks.
 
----
+- **Points & levels** 
+    <br> Every logged film earns points (more if you write a review), which accumulate across 20 named levels (Rookie Critic → True Cinephile), each with its own point threshold.
+- **Achievements** 
+    <br> 8 badges (e.g. *First Reel* for your first log, *Marathoner* for 5 films in a week, *Devoted* for a 30-day streak) unlock automatically as you use the app, each shown with live progress toward the next unlock.
+- **Streaks**
+    <br> A running "current streak" is calculated from your watch dates and surfaced on the dashboard.
+- **Progress tracking**
+    <br> The dashboard and profile page visualise XP-to-next-level, genre breakdown, and recent activity, turning ordinary logging into visible progress.
 
-## Profile
-
-![Profile Screenshot](docs/screenshots/profile.png)
-
----
-
-## Achievements
-
-![Achievements Screenshot](docs/screenshots/achievements.png)
-
----
-
-## Dark Mode
-
-![Dark Mode Screenshot](docs/screenshots/dark-mode.png)
+All the points, levels, and achievements are computed server-side (`GamificationService`) and drive real unlocks and feedback (level-up and achievement toasts) the moment a user logs a film, rates it, or adds it to their watchlist.
 
 ---
 
-# 🛠 Technology Stack
+## What makes Cinephile worth a closer look?
 
-## Frontend
-
-- React
-- TypeScript
-- Vite
-- Tailwind CSS v4
-- Shadcn UI
-- React Router
-- Lucide Icons
-- Sonner
-
----
-
-## Backend
-
-- ASP.NET Core Web API (.NET 10)
-- Entity Framework Core
-- JWT Authentication
-- BCrypt Password Hashing
-- Scalar API Documentation
+- **Personalised recommendations** 
+    <br>The "Recommended for you" rail isn't static; the backend looks at the genre that the user log the most, then queries TMDB's discover endpoint for that genre, excluding anything you've already logged or watchlisted. New users with no history fall back to TMDB's popular list, so the section is never empty.
+- **Community reviews, not just personal ones** 
+    <br>Every movie page shows other users' ratings and reviews for that film (excluding the current user's), pulled live from everyone's logs, so the app builds a shared sense of what the community thinks rather than being a purely solo journal.
+- **Real progress feedback, not just a database update**
+    <br> A user logging a film, adding a review, or completing their watchlist threshold triggers live toast notifications for points earned, level-ups, and achievement unlocks, so gamification is felt in the moment rather than only visible after the fact on a stats page.
+- **Achievements track progress, not just pass/fail**
+    <br>Every achievement shows live progress toward the next unlock (e.g. "42/100" logs toward Centurion), even before the user has earned it so the badges feel like something that they are working towards, not a surprise that appears out of nowhere.
+- **Watchlist and logging talk to each other**
+    <br>Log a film you'd previously added to your watchlist and it's automatically removed which means that the two lists stay in sync without the user having to manually clean up after themselves.
 
 ---
 
-## Database
+## Advanced features implemented
 
-- PostgreSQL
+- [x] **Theme switching (light/dark mode)** 
+    <br> A persistent theme toggle (`ThemeProvider` + `ModeToggle`) available from the nav bar on every page, backed by `localStorage` so the choice survives a reload.
+- [x] **End-to-end testing using Cypress** 
+    <br> 8 spec files covering auth, search, watchlist, logging & gamification feedback, community reviews, dashboard/profile, navigation/theme/responsiveness, and API authorisation.
+- [x] **Security measures** 
+    <br> *(2, as required - see [Security](#security) below for the full write-up)*:
+  - Password hashing with BCrypt
+  - Server-side data validation via ASP.NET Core DataAnnotations
 
----
+## Security
 
-## External APIs
+Two security measures were implemented, both directly protecting the data this app handles: user credentials and everything tied to a user's account (points, logs, watchlist).
 
-- The Movie Database (TMDB)
+### 1. Password hashing (BCrypt)
+
+**Why it matters:** Cinephile stores an email/password for every account. If the database were ever exposed, storing passwords in plaintext (or with a fast, reversible hash) would mean every user's password, and likely their reused passwords on other sites would also leak with it. Password hashing is the baseline expectation for any app that manages its own auth.
+
+**How it's implemented:**
+- On registration, `BCrypt.Net.BCrypt.HashPassword(request.Password)` hashes the password before it's ever written to `Users.PasswordHash` (see `AuthController.Register`). The plaintext password is never persisted.
+- On login, `BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash)` checks the supplied password against the stored hash — the app never has a reason to decrypt or compare plaintext.
+- BCrypt is deliberately slow (adaptive cost factor), which makes brute-forcing leaked hashes impractical compared to fast hashes like unsalted SHA-256.
+- Login failures return one generic `"Invalid email or password."` message regardless of whether the email didn't exist or the password was wrong, so the endpoint can't be used to enumerate registered emails.
+
+### 2. Data validation & sanitisation (DataAnnotations)
+
+**Why it matters:** Every write endpoint (register, log a film, write a review, add to watchlist) accepts user-supplied input. Without server-side validation, malformed or oversized input can corrupt data, break assumptions the app relies on elsewhere (e.g. a rating outside 0–5 skewing the community average), or just cause unhandled exceptions. Validation has to live on the server — the frontend's own checks are trivially bypassable by anyone calling the API directly.
+
+**How it's implemented:**
+- Request DTOs use DataAnnotations directly on their fields, e.g. `RegisterRequest` requires a username between 3-30 characters, a valid email format, and a password of at least 8 characters (`AuthDtos.cs`); `CreateLogRequest`/`UpdateLogRequest` constrain `Rating` to 0.5–5 and cap `Review` at 4000 characters (`LogDtos.cs`).
+- Every controller is marked `[ApiController]`, which makes ASP.NET Core automatically validate the model and return a `400 Bad Request` before the action method body even runs if any attribute fails, the invalid input never reaches business logic.
+- Review text is trimmed and empty/whitespace-only reviews are normalised to `null` server-side (`LogsController`), so the review count and "has this user reviewed a film" checks can't be gamed with blank strings.
 
 ---
 
 ## Testing
 
-### Backend
-
-- xUnit
-- Moq
-
-### Frontend
-
-- Vitest
-- React Testing Library
-
-### End-to-End
-
-- Cypress
-
----
-
-## DevOps
-
-- GitHub Actions
-- Azure App Service
-- Vercel
-
----
-
-# 📂 Project Structure
-
-```text
-cinephile/
-│
-├── backend/                 ASP.NET Core Web API
-├── backend.Tests/           xUnit backend tests
-├── frontend/                React + TypeScript application
-├── .github/workflows/       CI pipelines
-├── specs/                   Planning and AI documentation
-└── README.md
+**Backend** (xUnit and Moq, run from root directory):
 ```
-
-# 🏗 System Architecture
-
-Cinephile follows a modern three-tier architecture consisting of a React frontend, an ASP.NET Core Web API backend, and a PostgreSQL database.
-
-```text
-                    ┌──────────────────────┐
-                    │      React App       │
-                    │  React + TypeScript  │
-                    └──────────┬───────────┘
-                               │
-                        REST API Requests
-                               │
-                    ┌──────────▼───────────┐
-                    │ ASP.NET Core Web API │
-                    │ Authentication       │
-                    │ Business Logic       │
-                    │ Gamification         │
-                    └──────────┬───────────┘
-                               │
-                   Entity Framework Core
-                               │
-                    ┌──────────▼───────────┐
-                    │     PostgreSQL       │
-                    │  Users, Logs, XP,    │
-                    │ Achievements, Movies │
-                    └──────────────────────┘
-                               │
-                    ┌──────────▼───────────┐
-                    │       TMDB API       │
-                    │ Movie Metadata       │
-                    └──────────────────────┘
+dotnet test
 ```
+50 unit tests covering `GamificationService` (points, levels, streaks, achievement unlocks), `TokenService`, `MovieCacheService`, and the Auth/Logs/Watchlist/Movies/Users/Achievements controllers.
 
----
-
-# 🗄 Database Design
-
-The backend uses **PostgreSQL** with **Entity Framework Core** as the ORM.
-
-The primary entities include:
-
-- User
-- MovieLog
-- WatchlistItem
-- Achievement
-- UserAchievement
-- Level
-
-Relationships include:
-
-- One user can have many movie logs.
-- One user can have many watchlist items.
-- One user can unlock many achievements.
-- Each user belongs to a level.
-- Movie logs store ratings and reviews linked to TMDB movie IDs.
-
-Database schema changes are managed using **Entity Framework Core Migrations**.
-
----
-
-# 🔑 Environment Variables
-
-The application requires different environment variables for local development and production deployment.
-
-## Frontend
-
-Create a `.env` file inside the `frontend` directory.
-
-```env
-VITE_API_URL=http://localhost:5045
+**Frontend unit tests** (Vitest + Testing Library, run from `/frontend`):
 ```
-
-For the deployed application, this value should point to the deployed backend API.
-
-Example:
-
-```env
-VITE_API_URL=https://your-backend.azurewebsites.net
-```
-
----
-
-## Backend
-
-Create an `appsettings.Development.json` file inside the `backend` project.
-
-Example structure:
-
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "<YOUR_POSTGRES_CONNECTION_STRING>"
-  },
-  "Jwt": {
-    "Issuer": "Cinephile",
-    "Audience": "CinephileUsers",
-    "Key": "<YOUR_SECRET_KEY>"
-  },
-  "Tmdb": {
-    "ReadAccessToken": "<YOUR_TMDB_ACCESS_TOKEN>"
-  }
-}
-```
-
-> **Important:** Sensitive configuration files are intentionally excluded from version control.
-
----
-
-# 🚀 Running Locally
-
-## Prerequisites
-
-- .NET SDK 10
-- Node.js 24+
-- PostgreSQL
-- Git
-
----
-
-## Clone the Repository
-
-```bash
-git clone https://github.com/carolrichadsouza/cinephile.git
-
-cd cinephile
-```
-
----
-
-## Backend Setup
-
-Navigate to the backend project.
-
-```bash
-cd backend
-```
-
-Restore dependencies.
-
-```bash
-dotnet restore
-```
-
-Apply database migrations.
-
-```bash
-dotnet ef database update
-```
-
-Run the API.
-
-```bash
-dotnet run
-```
-
-The backend will start on:
-
-```
-http://localhost:5045
-```
-
----
-
-## Frontend Setup
-
-Navigate to the frontend.
-
-```bash
-cd frontend
-```
-
-Install dependencies.
-
-```bash
-npm install
-```
-
-Run the development server.
-
-```bash
-npm run dev
-```
-
-The frontend will be available at:
-
-```
-http://localhost:5173
-```
-
----
-
-# 🌍 Deployment
-
-## Frontend
-
-Hosted using **Vercel**.
-
-**Live Application**
-
-https://cinephile-mu.vercel.app/
-
----
-
-## Backend
-
-Hosted using **Microsoft Azure App Service**.
-
-The backend connects to an Azure-hosted PostgreSQL database and serves the REST API consumed by the frontend.
-
----
-
-## API Documentation
-
-Interactive API documentation is provided using **Scalar**.
-
-https://cinephile-api-dub2aababvacgng5.newzealandnorth-01.azurewebsites.net/scalar
-
-Scalar documents all available endpoints, request models, response models, and authentication requirements.
-
----
-
-# 🔄 Continuous Integration
-
-GitHub Actions are used to automatically validate every push and pull request.
-
-## Backend Pipeline
-
-The backend workflow automatically:
-
-- Restores NuGet packages
-- Builds the solution
-- Runs all backend unit tests
-
----
-
-## Frontend Pipeline
-
-The frontend workflow automatically:
-
-- Installs dependencies
-- Runs ESLint
-- Executes all frontend unit tests
-- Builds the React application
-
-These automated pipelines help ensure code quality and prevent regressions before deployment.
-
-# 🧪 Testing
-
-Testing was implemented across multiple layers of the application to improve reliability and ensure that both frontend and backend functionality behave as expected.
-
----
-
-## Backend Unit Testing
-
-The backend is tested using **xUnit** together with **Moq** for dependency mocking.
-
-Tests cover:
-
-### Authentication
-
-- User registration
-- Duplicate username validation
-- Duplicate email validation
-- Password hashing
-- Login authentication
-- Invalid credential handling
-
----
-
-### Movie Logs
-
-- Creating movie logs
-- Updating movie logs
-- Deleting movie logs
-- Retrieving watched movies
-- Ownership validation
-- Invalid request handling
-
----
-
-### Watchlist
-
-- Add movie to watchlist
-- Remove movie from watchlist
-- Prevent duplicate watchlist entries
-- Retrieve user watchlist
-
----
-
-### User Profile
-
-- Retrieve current user
-- Profile statistics
-- Achievement retrieval
-- Level progression
-
----
-
-### Movie API
-
-- Search movies
-- Retrieve movie details
-- Invalid movie handling
-
----
-
-### Services
-
-- JWT Token Service
-- TMDB Movie Cache Service
-- Gamification Service
-
-The backend includes a comprehensive suite of unit tests covering controllers and services.
-
-Run backend tests:
-
-```bash
-dotnet test Cinephile.slnx
-```
-
----
-
-# ⚛ Frontend Unit Testing
-
-Frontend unit tests were written using:
-
-- Vitest
-- React Testing Library
-
-The frontend test suite covers both UI behaviour and application logic.
-
-Components tested include:
-
-- Authentication page
-- Protected routes
-- Theme provider
-- Rating component
-- Community reviews
-- Dashboard
-- Search page
-- Movie details
-- Watchlist
-- User profile
-- Authentication context
-- API helper functions
-- Gamification toast notifications
-
-Run frontend tests:
-
-```bash
-cd frontend
-
 npm test
 ```
+35 tests across components, lib helpers, and pages.
 
-Coverage can be generated using:
-
-```bash
-npm run test:coverage
+**End-to-end tests** (Cypress, run from `/frontend`, requires the backend running locally):
 ```
-
----
-
-# 🌐 End-to-End Testing
-
-End-to-end testing was implemented using **Cypress**.
-
-These tests simulate real user interactions within the browser.
-
-Covered workflows include:
-
-- User registration
-- User login
-- Protected routes
-- Movie searching
-- Watchlist management
-- Rating movies
-- Reviewing movies
-- Updating movie logs
-- Deleting movie logs
-- Profile access
-- Logout flow
-
-Run Cypress locally:
-
-```bash
-npm run cy:open
+npx cypress open
 ```
+8 specs covering auth, search, watchlist, logging & gamification feedback, community reviews, dashboard/profile, navigation/theme/responsiveness, and API authorisation.
 
-Run headlessly:
-
-```bash
-npm run cy:run
-```
+All three suites run in CI on every push/PR via `backend-ci.yml` and `frontend-ci.yml`.
 
 ---
 
-# 🤖 AI Usage
+## Self-reflection
 
-Artificial Intelligence was used throughout the software development lifecycle to improve productivity while maintaining ownership of all design and implementation decisions.
+Looking back on this project, one of the biggest things I would do differently is deploy the application much earlier. I left deploying the frontend and backend to when it became necessary to implement it, which meant I had to deal with deployment-specific issues such as CORS configuration, environment variables, and build differences all at once. Setting up deployment earlier would have helped me identify and fix these issues incrementally instead of at the end.
 
-AI assisted with:
+I would also introduce automated testing much earlier in the development process. While I implemented backend unit tests, frontend unit tests, and Cypress end-to-end tests, these were added after most of the application's features had already been built. Writing tests alongside new functionality would have made debugging easier, given me more confidence when making changes, and reduced the amount of work needed to build the final test suites.
 
-- Brainstorming feature ideas
-- API design discussions
-- Debugging
-- Explaining framework behaviour
-- Refactoring suggestions
-- Documentation
-- Test generation
-- CI/CD workflow creation
+Another thing I would have liked to explore is some of the other advanced requirements. I was interested in using a state management library such as Zustand and experimenting with Storybook for documenting and testing UI components. Although I decided not to include these due to time constraints, I think they would have been valuable additions and would have strengthened the project's architecture.
 
-All generated content was reviewed, modified where necessary, and tested before being incorporated into the final project.
+Finally, there are a few features that I would like to continue developing beyond the scope of this assessment. One feature I originally planned was a "Browse by Genre" section on the dashboard to help users discover movies more easily. I removed it to focus on completing the core functionality, but it's something I'd like to revisit in a future version of Cinephile.
 
-Planning documents, prompt history, and AI-assisted development notes are available inside the **/specs** directory.
+--- 
 
----
-
-# ⭐ Advanced Requirements
-
-This project implements the following advanced requirements from the Microsoft Student Accelerator (MSA) Phase 2 assessment.
-
----
-
-## 1. Theme Switching
-
-The application supports both **light** and **dark** themes to provide a more personalised user experience.
-
-Features include:
-
-- System-wide light and dark mode
-- Theme persistence across browser sessions
-- Consistent styling across all pages and components
-- Responsive design in both themes
-- Implemented using React, Tailwind CSS and Shadcn UI
-
-This improves accessibility, usability, and user experience while maintaining a consistent visual design throughout the application.
-
----
-
-## 2. End-to-End Testing with Cypress
-
-Comprehensive end-to-end testing was implemented using **Cypress** to validate complete user workflows from the perspective of an end user.
-
-The Cypress test suite covers critical application functionality including:
-
-- User registration
-- User login
-- Protected routes
-- Movie searching
-- Watchlist management
-- Adding watched movies
-- Updating movie logs
-- Deleting movie logs
-- Rating movies
-- Writing reviews
-- Viewing user profiles
-- Logout functionality
-
-These tests simulate real browser interactions and verify that the frontend and backend work together correctly, providing confidence that key user journeys function as expected.
-
----
-
-## 3. Security Measures
-
-Security was considered throughout the development of the application to protect user data and ensure secure access to resources.
-
-### Password Hashing
-
-User passwords are securely hashed using **BCrypt** before being stored in the database. Plain-text passwords are never stored.
-
-### Data Validation
-
-Both frontend and backend validate incoming user input.
-
-Examples include:
-
-- Email validation
-- Password strength requirements
-- Username length validation
-- Rating value validation
-- Required field validation
-
-### Data Sanitisation
-
-Incoming requests are validated using DTOs and model validation before being processed by the API.
-
-Invalid or malformed requests are rejected before reaching the application's business logic.
-
-### Protected Resources
-
-JWT authentication is used to secure authenticated endpoints, ensuring that users can only access and modify their own data.
-
-These security measures help protect user accounts and improve the overall reliability of the application.
-
----
-
-# 📚 Additional Documentation
-
-Additional project documentation is available in the following locations.
-
-## GitHub Wiki
-
-Project planning, early design work, and development milestones:
-
-https://github.com/carolrichadsouza/cinephile/wiki
-
----
-
-## Specs Folder
-
-The `/specs` directory contains:
-
-- Planning documentation
-- User stories
-- Design decisions
-- Database planning
-- API planning
-- Testing strategy
-- Security considerations
-- AI prompt history
-- Project reflections
-
-This documentation demonstrates the project's evolution throughout development.
-
-# 🔮 Future Improvements
-
-Although Cinephile meets the current project requirements, there are several enhancements that could be implemented in future versions.
-
-## Planned Features
-
-- Friend system and social movie sharing
-- Follow other users and view their activity
-- Movie recommendations based on user preferences
-- Advanced filtering and sorting
-- Personalised recommendation engine
-- Email verification and password reset
-- Push notifications
-- Public user profiles
-- Leaderboards
-- Monthly viewing challenges
-- Import watch history from Letterboxd or IMDb
-- Movie collections and custom lists
-- Offline support using Progressive Web App (PWA) technologies
-- AI-powered movie recommendations based on viewing history
-
----
-
-# 💡 Challenges and Lessons Learned
-
-Developing Cinephile provided valuable experience across the full software development lifecycle.
-
-Some of the key challenges included:
-
-- Designing a scalable backend architecture using ASP.NET Core and Entity Framework Core.
-- Implementing JWT authentication securely while protecting user-specific resources.
-- Integrating the TMDB API with efficient caching and error handling.
-- Designing a gamification system that remained engaging without becoming overly complex.
-- Maintaining consistency between frontend and backend models.
-- Creating automated tests across multiple layers of the application.
-- Configuring CI pipelines for both frontend and backend projects.
-- Deploying a full-stack application across multiple cloud services.
-
-Through this project, I gained practical experience with full-stack architecture, testing strategies, deployment, DevOps workflows, and secure web application development.
-
----
-
-# 🤝 Acknowledgements
-
-This project was developed as part of the **Microsoft Student Accelerator (MSA) Phase 2 Assessment**.
-
-The following technologies and services were used:
-
-- Microsoft Student Accelerator
-- React
-- ASP.NET Core
-- Entity Framework Core
-- PostgreSQL
-- Azure App Service
-- Vercel
-- TMDB API
-- Tailwind CSS
-- Shadcn UI
-- Vitest
-- React Testing Library
-- Cypress
-- xUnit
-- GitHub Actions
-
-Special thanks to the maintainers of these open-source technologies and services that made this project possible.
-
----
-
-# 👩‍💻 Author
-
-**Carol Richa Dsouza**
-
-Master of Information Technology (First Class Honours)
-
-University of Auckland
-
-GitHub:
-
-https://github.com/carolrichadsouza
-
-LinkedIn:
-
-https://www.linkedin.com/in/carolrichadsouza/
-
----
-
-# 📄 License
-
-This repository was developed for educational purposes as part of the Microsoft Student Accelerator (MSA) programme.
-
----
-
-# 📌 Repository
-
-GitHub Repository
-
-https://github.com/carolrichadsouza/cinephile
-
----
-
-# 📬 Contact
-
-If you have any questions regarding this project, feel free to reach out via GitHub or LinkedIn.
-
----
-
-# ✅ Submission Checklist
-
-- ✔ Full-stack web application
-- ✔ React frontend
-- ✔ ASP.NET Core Web API backend
-- ✔ PostgreSQL database
-- ✔ JWT authentication
-- ✔ Gamification system
-- ✔ Responsive user interface
-- ✔ Light and dark theme support
-- ✔ Backend unit testing (xUnit)
-- ✔ Frontend unit testing (Vitest & React Testing Library)
-- ✔ Cypress end-to-end testing
-- ✔ Continuous Integration using GitHub Actions
-- ✔ Scalar API documentation
-- ✔ Azure deployment
-- ✔ Vercel deployment
-- ✔ GitHub Wiki documentation
-- ✔ `/specs` documentation
-- ✔ AI-assisted software development documentation
-
----
-
-## Final Reflection
-
-Cinephile demonstrates the design and implementation of a modern full-stack web application using contemporary software engineering practices. Throughout the project, I applied principles of secure application development, RESTful API design, responsive frontend development, automated testing, continuous integration, cloud deployment, and gamification.
-
-One of the most rewarding aspects of the project was integrating multiple technologies into a cohesive application while ensuring maintainability through testing and CI pipelines. Implementing gamification transformed a traditional movie tracking application into a more engaging experience, encouraging continued user interaction through achievements, levels, XP, and streaks.
-
-The project also provided practical experience working with AI-assisted development. Rather than relying on AI-generated code directly, I used AI as a collaborative development tool for planning, debugging, documentation, explaining concepts, and reviewing implementation ideas. Every AI-assisted solution was reviewed, tested, and adapted before being incorporated into the final application.
-
-Overall, Cinephile has strengthened my understanding of full-stack application development and provided valuable experience across planning, implementation, testing, deployment, and documentation.
+## AI Usage
+See the /specs folder for AI prompts, agent instructions, and planning artifacts used during development, and the submission video for a walkthrough of how AI was used.

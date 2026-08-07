@@ -165,35 +165,35 @@ Each user has a personalised profile containing:
 
 ### Login
 
-![Login Screenshot]()
+<img width="1917" height="906" alt="Login Screenshot" src="https://github.com/user-attachments/assets/913fbbf7-a1c2-4503-842b-7d79173a23c1" />
 
 ### Dashboard
 
-![Dashboard Screenshot]()
+<img width="1901" height="907" alt="Dashboard Screenshot" src="https://github.com/user-attachments/assets/c005085c-2769-4d84-9b07-5a769d9ad373" />
 
 ### Search
 
-![Search Screenshot]()
+<img width="1896" height="912" alt="Search Screenshot" src="https://github.com/user-attachments/assets/fbdfa0e5-be91-4c2b-a07b-322d5262020c" />
 
 ### Movie Details
 
-![Movie Details Screenshot]()
+<img width="1901" height="907" alt="Movie Details Screenshot" src="https://github.com/user-attachments/assets/21775a53-0860-4fa7-8450-9a7b86fc0d26" />
 
 ### Watchlist
 
-![Watchlist Screenshot]()
+<img width="1917" height="912" alt="Watchlist Screenshot" src="https://github.com/user-attachments/assets/bd32776e-d2f3-4f29-ae3c-63bbd9811873" />
 
 ### Profile
 
-![Profile Screenshot]()
+<img width="1897" height="906" alt="Profile Screenshot" src="https://github.com/user-attachments/assets/0794a56f-c1f4-47bf-bae4-9c34eb0bf9e1" />
 
-### Achievements
+### Achievements Popup Screenshot
 
-![Achievements Screenshot]()
+<img width="1900" height="910" alt="Achievements Popup Screenshot" src="https://github.com/user-attachments/assets/df7c7c97-d4c8-42c5-be8d-9e52c5cc39a2" />
 
 ### Dark Mode
 
-![Dark Mode Screenshot]()
+<img width="1900" height="907" alt="Dark Mode Screenshot" src="https://github.com/user-attachments/assets/27583ead-827e-4354-a79d-e37051b6a442" />
 
 ---
 

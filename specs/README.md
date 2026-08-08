@@ -68,43 +68,39 @@ specs/
 
 ## Document Overview
 
-### `project-context.md`
+### [project-context.md](project-context.md)
 
 Describes the overall project, technology stack, architecture, objectives, and constraints that were consistently provided as context when requesting AI assistance.
 
-### `agent-instructions.md`
+### [agent-instructions.md](agent-instructions.md)
 
 Documents the guidance given to AI tools to ensure responses aligned with the project's architecture, coding standards, and development practices.
 
-### `ai-development-overview.md`
+### [ai-development-overview.md](ai-development-overview.md)
 
 Provides an overview of how AI was incorporated into the software development lifecycle, including planning, implementation, debugging, testing, documentation, and deployment.
 
-### `development-workflow.md`
+### [development-workflow.md](development-workflow.md)
 
 Summarises the chronological development process from initial planning through deployment and submission.
 
-### `architecture-decisions.md`
+### [architecture-decisions.md](architecture-decisions.md)
 
 Explains the rationale behind key technical decisions, including framework selection, backend architecture, database design, authentication strategy, and deployment choices.
 
-### `testing-strategy.md`
+### [testing-strategy.md](testing-strategy.md)
 
 Documents the overall testing approach, including backend unit testing, frontend unit testing, end-to-end testing, and continuous integration.
 
-### `security-design.md`
+### [security-design.md](security-design.md)
 
 Describes the security measures implemented throughout the application, including password hashing, authentication, input validation, authorisation, and secure configuration management.
 
-### `deployment-notes.md`
-
-Documents the deployment architecture, cloud services used, environment configuration, and continuous integration pipelines.
-
-### `ai-prompts.md`
+### [ai-prompts.md](ai-prompts.md)
 
 Contains a chronological record of representative prompts used during development. The prompts demonstrate how AI was used to support planning, problem solving, debugging, testing, deployment, and documentation.
 
-### `prompts/`
+### [prompts/](prompts/)
 
 The `prompts` directory groups representative prompts by development phase to show how AI assistance evolved throughout the project rather than being concentrated at the end.
 

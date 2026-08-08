@@ -55,15 +55,13 @@ specs/
 ├── architecture-decisions.md
 ├── testing-strategy.md
 ├── security-design.md
-├── deployment-notes.md
-├── retrospective.md
 ├── ai-prompts.md
 │
 └── prompts/
     ├── 01-planning-phase.md
     ├── 02-backend-development.md
     ├── 03-frontend-development.md
-    ├── 04-gamification.md
+    ├── 04-gamification-development.md
     ├── 05-testing.md
     └── 06-deployment.md
 ```

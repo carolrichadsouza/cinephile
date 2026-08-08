@@ -60,10 +60,10 @@ v0 generated the initial interface design, which was then customised and integra
 
 | Phase | Document |
 |---------|----------|
-| Planning | `prompts/01-planning.md` |
+| Planning | `prompts/01-planning-phase.md` |
 | Backend Development | `prompts/02-backend-development.md` |
 | Frontend Development | `prompts/03-frontend-development.md` |
-| Gamification | `prompts/04-gamification.md` |
+| Gamification | `prompts/04-gamification-development.md` |
 | Testing | `prompts/05-testing.md` |
 | Deployment | `prompts/06-deployment.md` |
 
